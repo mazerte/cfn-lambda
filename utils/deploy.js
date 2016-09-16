@@ -42,7 +42,10 @@ var main = function(options, main_callback){
 
 	console.log('Zipping Lambda bundle to buffer...');
 
-	var options = { ignore: ["deploy/**"] };
+	var options = {
+		cwd: RESOURCE_DIR,
+		ignore: ["deploy/**"]
+	};
   try {
     var ignore = fs.readFileSync( path.join(RESOURCE_DIR, ".zipignore"), 'utf8' );
     options.ignore = _.compact( _.flatten([options.ignore, ignore.split('\n')]) );

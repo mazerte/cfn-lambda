@@ -30,8 +30,12 @@ program
   });
 
 program
-  .command('zip [path]')
-  .action( function(output, options) {
+  .command('zip [module]')
+  .option('-o, --output [path]', 'Path to the output zip file')
+  .action( function(cfnModule, options) {
+    var output = options.output;
+    var RESOURCE_DIR = cfnModule ? path.join(process.cwd(), 'node_modules', cfnModule) : process.cwd();
+
     if (!output) {
       var RESOURCE_INFO = require(path.join(process.cwd(), 'package.json'));
       var filename = RESOURCE_INFO.name + "-" + RESOURCE_INFO.version.replace(/\./g, '-') + ".zip";
@@ -39,8 +43,8 @@ program
     }
 
     var zip = require('../utils/zip');
-    console.log("Zipping Lambda bundle to " + output);
-    zip(output, function() {
+    console.log("Zipping", cfnModule, "Lambda bundle to " + output);
+    zip(RESOURCE_DIR, output, function() {
       console.log("Zipping Finished");
     });
   });
