@@ -154,7 +154,7 @@ var main = function(options, main_callback){
 	            Description: LAMBDA_DESC,
 	            Role: role_arn,
 	            Handler: 'index.handler',
-	            Runtime: 'nodejs',
+	            Runtime: 'nodejs4.3',
 	            Timeout: LAMBDA_TIMEOUT,
 	            MemorySize: LAMBDA_MEMORY_SIZE
 	          },
